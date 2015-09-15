@@ -1,0 +1,34 @@
+{
+  "name": "reflux-todo",
+  "version": "1.0.0",
+  "description": "Basic todo app using reflux",
+  "main": "app/index.js",
+  "scripts": {
+    "test": "mocha -R nyan --compilers js:babel/register",
+    "start": "open \"http://localhost:3000/dist\" && http-server -p 3000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephenoken/reflux-todo.git"
+  },
+  "keywords": [
+    "react",
+    "reflux"
+  ],
+  "author": "stephenoken@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stephenoken/reflux-todo/issues"
+  },
+  "homepage": "https://github.com/stephenoken/reflux-todo#readme",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-core": "^5.8.24",
+    "babel-eslint": "^4.1.2",
+    "babel-plugin-object-assign": "^1.2.1",
+    "eslint-plugin-react": "^3.3.2",
+    "gulp": "^3.9.0",
+    "gulp-mocha": "^2.1.3",
+    "require-dir": "^0.3.0"
+  }
+}
