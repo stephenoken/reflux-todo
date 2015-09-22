@@ -7,12 +7,11 @@ gulp.task('build-html',function () {
     return gulp.src('./src/**/*.html')
         .pipe(gulpRemoveHtml())
         .pipe(minifyHTML())
-        .pipe(gzip())
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('compress-html',function () {
-    return gulp.src('./dist/**/*.html')
+gulp.task('compress-dist',function () {
+    return gulp.src('./dist/**/*.*')
         .pipe(gzip())
         .pipe(gulp.dest('dist'));
 });
