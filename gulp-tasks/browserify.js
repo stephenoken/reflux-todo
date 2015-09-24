@@ -10,11 +10,12 @@ var babelify = require('babelify');
 var uglify = require('gulp-uglify');
 
 var externalLibs = [
-  "react"
+  "react",
+  "reflux"
 ];
 
 var customOpts ={
- entries: './src/App.js',
+ entries: './src/App.jsx',
  debug: true
 };
 var opts = assign({}, watchify.args, customOpts);

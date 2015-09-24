@@ -7,5 +7,12 @@ gulp.task('browser-sync-proxy', function() {
     });
 });
 
-gulp.task('browser-bundle-watch',['browser-bundle'],browserSync.reload);
-gulp.task('build-html-watch',['build-html'],browserSync.reload);
+gulp.task('browser-bundle-watch',['browser-bundle'],
+  function () {
+    browserSync.reload();
+  });
+  
+gulp.task('build-html-watch',['build-html'],
+  function () {
+    browserSync.reload();
+  });
