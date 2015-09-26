@@ -1,47 +1,47 @@
 var expect = require('chai').expect;
-var sinon = require('sinon');
-var sinonChai = require('sinon-chai');
-
-require('chai').use(sinonChai);
 
 describe("TodoStore", function () {
-  var TodoStore,TodoActions,callback;
+  var TodoStore,TodoActions;
   var actionTodoCreate = {
     text: 'foo'
   };
+
   beforeEach(function () {
     TodoStore = require('./../../../../src/flux/todo/TodoStore');
     TodoActions = require('./../../../../src/flux/todo/actions/TodoActions');
-    //Important to use a callback to ensure the method is being mocked.
-    callback = sinon.spy();
-    sinon.spy(TodoStore,"getAll");
-    TodoStore.getAll(callback);
   });
 
   afterEach(function () {
-    TodoStore.getAll.restore();
+    localStorage.clear();
   });
 
   it("imports TodoStore", function () {
     expect(TodoStore).not.to.be.empty;
   });
 
-  it("listens to TodoActions", function () {
-    expect(TodoStore.listenables[0]).to.be.equal(TodoActions);
+  it("is configured", function () {
+    expect(TodoStore.listenables).to.include(TodoActions);
+    expect(TodoActions.getAll).to.be.a('function');
+    expect(TodoActions.createTodo).to.be.a('function');
   });
-
-  it("register a call to TodoStore", function () {
-    TodoActions.getAll();
-    expect(TodoStore.getAll).to.be.calledOnce;
-  });
+  
   it("initialise with no to-do items", function () {
     var all = TodoStore.getAll();
     expect(all).to.be.empty;
   });
+  
   it("creates a to-do item", function () {
-    TodoActions.createTodo(actionTodoCreate);
+    TodoStore.onCreateTodo(actionTodoCreate);
     var all = TodoStore.getAll();
     var keys = Object.keys(all);
     expect(keys.length).to.be.equal(1);
+    expect(all[keys[0]].text).to.be.equal("foo");
+  });
+  
+  it("persists to-do item in localStorage", function () {
+    TodoStore.onCreateTodo(actionTodoCreate);
+    var all = JSON.parse(localStorage['todos']);
+    var keys = Object.keys(all);
+    expect(all[keys[0]].text).to.be.equal('foo');
   });
 });
