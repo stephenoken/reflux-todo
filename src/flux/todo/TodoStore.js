@@ -30,7 +30,7 @@ var TodoStore = Reflux.createStore({
     return _todos;
   },
   onCreateTodo: function (todo) {
-    create(todo.text);
+    create(todo);
   }
 });
 

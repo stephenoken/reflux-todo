@@ -24,24 +24,28 @@ describe("TodoStore", function () {
     expect(TodoActions.getAll).to.be.a('function');
     expect(TodoActions.createTodo).to.be.a('function');
   });
-  
+
   it("initialise with no to-do items", function () {
     var all = TodoStore.getAll();
     expect(all).to.be.empty;
   });
-  
+
   it("creates a to-do item", function () {
-    TodoStore.onCreateTodo(actionTodoCreate);
+    TodoStore.onCreateTodo(actionTodoCreate.text);
     var all = TodoStore.getAll();
     var keys = Object.keys(all);
     expect(keys.length).to.be.equal(1);
     expect(all[keys[0]].text).to.be.equal("foo");
   });
-  
+
   it("persists to-do item in localStorage", function () {
-    TodoStore.onCreateTodo(actionTodoCreate);
+    TodoStore.onCreateTodo(actionTodoCreate.text);
     var all = JSON.parse(localStorage['todos']);
     var keys = Object.keys(all);
     expect(all[keys[0]].text).to.be.equal('foo');
+  });
+
+  it("description", function () {
+
   });
 });
