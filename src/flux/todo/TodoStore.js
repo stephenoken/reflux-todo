@@ -1,12 +1,14 @@
 var Reflux = require('reflux');
 var TodoActions = require('./actions/TodoActions');
-try {
-  var _todos = JSON.parse(localStorage["todos"]);
-} catch (e) {
-  console.error(`Error Getting Todos: No saved todos available.`);
-  var _todos = {};
-}
 
+var _todos = getTodos();
+function getTodos() {
+  try {
+      return JSON.parse(localStorage["todos"]);
+  } catch (e) {
+      return {};
+  }
+}
 function persistTodos() {
   try {
     localStorage["todos"] = JSON.stringify(_todos);
@@ -24,6 +26,10 @@ function create(text) {
   persistTodos();
 }
 
+function update(id, text) {
+  _todos[id].text = text;
+  persistTodos();
+}
 var TodoStore = Reflux.createStore({
   listenables: [TodoActions],
   getAll:function () {
@@ -31,6 +37,12 @@ var TodoStore = Reflux.createStore({
   },
   onCreateTodo: function (todo) {
     create(todo);
+  },
+  clearAll: function () {
+    _todos = {};
+  },
+  onUpdate: function (id, text) {
+    update(id, text);
   }
 });
 
