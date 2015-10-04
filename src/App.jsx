@@ -1,6 +1,6 @@
 let React = require('react');
-
+var Todo = require('./flux/todo/components/Todo.jsx');
 React.render(
-  <h1>Hello World !!</h1>,
+  <Todo/>,
     document.body
 );

@@ -30,6 +30,7 @@ function update(id, text) {
   _todos[id].text = text;
   persistTodos();
 }
+
 var TodoStore = Reflux.createStore({
   listenables: [TodoActions],
   getAll:function () {
